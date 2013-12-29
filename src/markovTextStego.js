@@ -644,7 +644,7 @@ var markovTextStego = function (options) {
      */
     var textToWordList = function (text) {
       // Define word list.
-      var wordList = text.match(/(?:\w[\w']*)|\.|\!|\?/g);
+      var wordList = text.match(/(\w['’\w\.\-]*\w)|\w|\.|\!|\?/g);
       // Replace punctuation and convert words to lowercase.
       for (var i = 0; i < wordList.length; i++) {
         if (stego.punctuationList.indexOf(wordList[i]) !== -1) {
