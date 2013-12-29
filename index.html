@@ -108,6 +108,8 @@
         codec.setModel(models[corpusOption]);
         // Encode text.
         $('#output-text').val(codec.encode($('#input-text').val()));
+        // Reset input text.
+        $('#input-text').val('');
         // Reset button state.
         $('#encode-text').button('reset');
       });
