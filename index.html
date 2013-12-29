@@ -47,7 +47,8 @@
               <button id="encode-text"
                       type="button"
                       data-loading-text="Encoding text..."
-                      class="btn btn-primary btn-block">
+                      class="btn btn-primary btn-block"
+                      disabled>
                 Encode Text
               </button>
             </div>
@@ -89,11 +90,19 @@
           $('#input-corpus').attr('disabled', true);
         }
       });
+      // Disable "Encode Text button when there is nothing to encode."
+      $('#input-text').bind('input propertychange', function (e) {
+        if ($('#input-text').val()) {
+          $('#encode-text').attr('disabled', false);
+        } else {
+          $('#encode-text').attr('disabled', true);
+        }
+      });
       // When "Encode Text" button is clicked:
       $('#encode-text').click(function () {
         // Change button state.
         $('#encode-text').button('loading');
-        $('#decode-text').attr('disabled', false)
+        $('#decode-text').attr('disabled', false);
         // Create or set ngramModel.
         var corpusOption = $('#corpus-selector').val();
         if (corpusOption === 'custom') {
