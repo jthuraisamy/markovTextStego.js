@@ -66,7 +66,8 @@
               <button id="decode-text"
                       type="button"
                       data-loading-text="Decoding text..."
-                      class="btn btn-success btn-block">
+                      class="btn btn-success btn-block"
+                      disabled>
                 Decode Text
               </button>
             </div>
@@ -91,6 +92,7 @@
       $('#encode-text').click(function () {
         // Change button state.
         $('#encode-text').button('loading');
+        $('#decode-text').attr('disabled', false)
         // Create or set ngramModel.
         var corpusOption = $('#corpus-selector').val();
         if (corpusOption === 'custom') {
