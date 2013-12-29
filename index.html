@@ -82,6 +82,8 @@
       var models = {};
       var stego = new markovTextStego();
       var codec = new stego.Codec(null);
+      // Focus on input textarea.
+      $('#input-text').focus();
       // When corpus selector changes:
       $('#corpus-selector').change(function () {
         if ($('#corpus-selector').val() === 'custom') {
