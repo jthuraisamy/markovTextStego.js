@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+  <head>
+    <title>markovTextStego.js Demo</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style type="text/css">
+      body { overflow-x: hidden; }
+      #demo-container { padding: 10px; }
+    </style>
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/corpora.js"></script>
+    <script src="../src/markovTextStego.js"></script>
+  </head>
+  <body>
+    <div id="demo-container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">Corpus Selection</h3>
+            </div>
+            <div class="panel-body">
+              <select id="corpus-selector" class="form-control">
+                <option value="romeo">Romeo (Romeo &amp; Juliet)</option>
+                <option value="custom">Custom...</option>
+              </select>
+              <br>
+              <textarea id="input-corpus"
+                        class="form-control"
+                        placeholder="Enter corpus text here..."
+                        rows="5"
+                        disabled></textarea>
+            </div>
+          </div>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">Input Text</h3>
+            </div>
+            <div class="panel-body">
+              <textarea id="input-text"
+                        class="form-control"
+                        placeholder="Enter input text here..."
+                        rows="5"></textarea>
+              <br>
+              <button id="encode-text"
+                      type="button"
+                      data-loading-text="Encoding text..."
+                      class="btn btn-primary btn-block">
+                Encode Text
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="panel panel-success">
+            <div class="panel-heading">
+              <h3 class="panel-title">Output Text</h3>
+            </div>
+            <div class="panel-body">
+              <textarea id="output-text"
+                        class="form-control"
+                        rows="18"
+                        onkeydown="return false;"></textarea>
+              <br>
+              <button id="decode-text"
+                      type="button"
+                      data-loading-text="Decoding text..."
+                      class="btn btn-success btn-block">
+                Decode Text
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      // Initialise stego.
+      var models = {};
+      var stego = new markovTextStego();
+      var codec = new stego.Codec(null);
+      // When corpus selector changes:
+      $('#corpus-selector').change(function () {
+        if ($('#corpus-selector').val() === 'custom') {
+          $('#input-corpus').attr('disabled', false).focus();
+        } else {
+          $('#input-corpus').attr('disabled', true);
+        }
+      });
+      // When "Encode Text" button is clicked:
+      $('#encode-text').click(function () {
+        // Change button state.
+        $('#encode-text').button('loading');
+        // Create or set ngramModel.
+        var corpusOption = $('#corpus-selector').val();
+        if (corpusOption === 'custom') {
+          if (models.hasOwnProperty(corpusOption)) {
+            delete models[corpusOption];
+          }
+          models[corpusOption] = new stego.NGramModel(2);
+          models[corpusOption].import([$('#input-corpus').val()]);
+        } else {
+          if (!models.hasOwnProperty(corpusOption)) {
+            models[corpusOption] = new stego.NGramModel(2);
+            models[corpusOption].import(corpora[corpusOption]);
+          }
+        }
+        codec.setModel(models[corpusOption]);
+        // Encode text.
+        $('#output-text').val(codec.encode($('#input-text').val()));
+        // Reset button state.
+        $('#encode-text').button('reset');
+      });
+      // When "Decode Text" button is clicked:
+      $('#decode-text').click(function () {
+        // Change button state.
+        $('#decode-text').button('loading');
+        // Decode text.
+        $('#input-text').val(codec.decode($.trim($('#output-text').val())));
+        // Reset button state.
+        $('#decode-text').button('reset');
+      });
+    </script>
+  </body>
+</html>
