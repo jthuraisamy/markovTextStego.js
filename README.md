@@ -36,7 +36,7 @@ Encode &amp; Decode:
 Limitations
 -----------
 
-* Corpus must, at minimum, contain two unique sentences/lines.
+* Corpus must contain at least two unique sentences/lines with each consisting of two or more words.
 
 Special Thanks
 --------------
