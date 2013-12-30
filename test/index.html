@@ -125,8 +125,8 @@
         // Reset input text.
         $('#input-text').val('');
         // Reset button state.
-        // $('#encode-text').button('reset');
         $('#encode-text').text('Encode Text');
+        $('#decode-text').button('reset');
       });
       // When "Decode Text" button is clicked:
       $('#decode-text').click(function () {
@@ -134,8 +134,11 @@
         $('#decode-text').button('loading');
         // Decode text.
         $('#input-text').val(codec.decode($.trim($('#output-text').val())));
+        // Reset output text.
+        $('#output-text').val('');
         // Reset button state.
-        $('#decode-text').button('reset');
+        $('#decode-text').text('Decode Text');
+        $('#encode-text').button('reset');
       });
     </script>
   </body>
