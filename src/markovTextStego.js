@@ -492,7 +492,8 @@ var markovTextStego = function (options) {
       var wordList = priorWord;
       while (currentWord !== stego.lineDelimiter) {
         var wordProbabilities = ngramModel.getModel()[priorWord];
-        currentWord = wordProbabilities[0][0];
+        rndWP = Math.floor(Math.random() * wordProbabilities.length);
+        currentWord = wordProbabilities[rndWP][0];
         if (currentWord === stego.lineDelimiter) {
           // Add current word to word list.
           wordList.push(currentWord);
