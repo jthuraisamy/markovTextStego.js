@@ -293,7 +293,7 @@ var MarkovTextStego = function (options) {
     };
   };
 
-  this.CodecException = function (code, message) {
+  this.CodecException = function (message) {
     this.message = message;
   };
 
@@ -335,6 +335,10 @@ var MarkovTextStego = function (options) {
      * @return {string}    Encoded data.
      */
     this.encode = function (data) {
+      // Throw exception if data is empty.
+      if (data.length === 0) {
+        throw new stego.CodecException('No input data was specified.');
+      }
       // Initialise counter.
       var i;
       // Set status.
