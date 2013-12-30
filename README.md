@@ -3,6 +3,8 @@ markovTextStego.js
 
 This is a text steganography library for JavaScript that is an adaptation of Hernan Moraldo's [markovTextStego](https://github.com/hmoraldo/markovTextStego).
 
+An online interactive demo is available [**here**](http://jthuraisamy.github.io/markovTextStego.js/).
+
 Installation
 ------------
 
