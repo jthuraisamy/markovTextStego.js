@@ -13,6 +13,12 @@
     <script src="js/markovTextStego.js"></script>
   </head>
   <body>
+    <div class="jumbotron">
+      <div class="container">
+        <h1>markovTextStego.js <small>by Jackson Thuraisamy</small></h1>
+        <p>Text steganography library for JavaScript</p>
+      </div>
+    </div>
     <div id="demo-container">
       <div class="row">
         <div class="col-md-6">
@@ -30,7 +36,7 @@
               <textarea id="input-corpus"
                         class="form-control"
                         placeholder="Enter corpus text here..."
-                        rows="5"
+                        rows="2"
                         disabled></textarea>
             </div>
           </div>
@@ -42,7 +48,7 @@
               <textarea id="input-text"
                         class="form-control"
                         placeholder="Enter input text here..."
-                        rows="5"></textarea>
+                        rows="2"></textarea>
               <br>
               <button id="encode-text"
                       type="button"
@@ -62,7 +68,7 @@
             <div class="panel-body">
               <textarea id="output-text"
                         class="form-control"
-                        rows="18"
+                        rows="12"
                         onkeydown="return false;"></textarea>
               <br>
               <button id="decode-text"
@@ -76,6 +82,46 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Usage</h3>
+            </div>
+            <div class="panel-body">
+              <p>Initial setup:</p>
+              <pre>var stego = new markovTextStego();</pre>
+              <p>Create n-gram model:</p>
+              <pre>
+var corpus = [...];
+var model = new stego.NGramModel(n);
+model.import(corpus);</pre>
+              <p>Initialise the Codec:</p>
+              <pre>var codec = new stego.Codec(model);</pre>
+              <p>Encode / Decode:</p>
+              <pre>codec.encode('Hello World!');
+codec.decode('The Achaeans. And with a moderate force of which one has to remark that men ought either to the kingdom! In exchange for the priesthood? Were San Pietro ad Vincula. He was obliged to avoid one trouble without running into another but prudence consists in knowing how lukewarm he was priest and that those men who were besieging Gaeta. In charge of Messer Antonio the priest to the shoulders of the counsellors will think of himself.');</pre>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">About</h3>
+            </div>
+            <div class="panel-body">
+              <p>
+                This is a text steganography library for JavaScript adapted from <a href="http://www.hernan.moraldo.com.ar/">Hernan Moraldo</a>'s <a href="https://github.com/hmoraldo/markovTextStego">reference implementation</a> for &ldquo;<a href="http://www.41jaiio.org.ar/sites/default/files/3_WSegI_2012.pdf">An Approach for Text Steganography Based on Markov Chains</a>&rdquo;. This method produces more natural looking and less easily detectable texts than other Markov-based systems.
+                This implementation supports values of n &ge; 1.
+              </p>
+              <p>Acknowledgements:</p>
+              <ul>
+                <li>Hernan Moraldo</li>
+                <li>Umair Idris</li>
+              </ul>
+            </div>
+          </div>
+        </div>
     </div>
     <script type="text/javascript">
       // Initialise stego.
