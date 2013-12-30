@@ -21,7 +21,7 @@
     </div>
     <div id="demo-container">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div class="panel panel-info">
             <div class="panel-heading">
               <h3 class="panel-title">Corpus Selection</h3>
@@ -29,6 +29,7 @@
             <div class="panel-body">
               <select id="corpus-selector" class="form-control">
                 <option value="prince">The Prince (Niccol&ograve; Machiavelli)</option>
+                <option value="revelations">Revelations (King James Version of the Bible)</option>
                 <option value="romeo">Romeo &amp; Juliet (William Shakespeare)</option>
                 <option value="custom">Custom...</option>
               </select>
@@ -36,10 +37,12 @@
               <textarea id="input-corpus"
                         class="form-control"
                         placeholder="Enter corpus text here..."
-                        rows="2"
+                        rows="10"
                         disabled></textarea>
             </div>
           </div>
+        </div>
+        <div class="col-md-4">
           <div class="panel panel-primary">
             <div class="panel-heading">
               <h3 class="panel-title">Input Text</h3>
@@ -48,7 +51,7 @@
               <textarea id="input-text"
                         class="form-control"
                         placeholder="Enter input text here..."
-                        rows="2"></textarea>
+                        rows="10"></textarea>
               <br>
               <button id="encode-text"
                       type="button"
@@ -60,7 +63,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div class="panel panel-success">
             <div class="panel-heading">
               <h3 class="panel-title">Output Text</h3>
@@ -68,7 +71,7 @@
             <div class="panel-body">
               <textarea id="output-text"
                         class="form-control"
-                        rows="12"
+                        rows="10"
                         onkeydown="return false;"></textarea>
               <br>
               <button id="decode-text"
