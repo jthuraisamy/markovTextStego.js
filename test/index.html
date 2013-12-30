@@ -10,7 +10,7 @@
     <script src="js/jquery-1.10.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/corpora.js"></script>
-    <script src="../src/markovTextStego.js"></script>
+    <script src="js/markovTextStego.js"></script>
   </head>
   <body>
     <div id="demo-container">
@@ -22,7 +22,8 @@
             </div>
             <div class="panel-body">
               <select id="corpus-selector" class="form-control">
-                <option value="romeo">Romeo (Romeo &amp; Juliet)</option>
+                <option value="prince">The Prince (Niccol&ograve; Machiavelli)</option>
+                <option value="romeo">Romeo &amp; Juliet (William Shakespeare)</option>
                 <option value="custom">Custom...</option>
               </select>
               <br>
@@ -46,7 +47,8 @@
               <button id="encode-text"
                       type="button"
                       data-loading-text="Encoding text..."
-                      class="btn btn-primary btn-block">
+                      class="btn btn-primary btn-block"
+                      disabled>
                 Encode Text
               </button>
             </div>
@@ -66,7 +68,8 @@
               <button id="decode-text"
                       type="button"
                       data-loading-text="Decoding text..."
-                      class="btn btn-success btn-block">
+                      class="btn btn-success btn-block"
+                      disabled>
                 Decode Text
               </button>
             </div>
@@ -79,6 +82,8 @@
       var models = {};
       var stego = new markovTextStego();
       var codec = new stego.Codec(null);
+      // Focus on input textarea.
+      $('#input-text').focus();
       // When corpus selector changes:
       $('#corpus-selector').change(function () {
         if ($('#corpus-selector').val() === 'custom') {
@@ -87,10 +92,26 @@
           $('#input-corpus').attr('disabled', true);
         }
       });
+      // Disable "Encode Text" button when there is nothing to encode.
+      $('#input-text').bind('input propertychange', function (e) {
+        if ($('#input-text').val()) {
+          $('#encode-text').attr('disabled', false);
+        } else {
+          $('#encode-text').attr('disabled', true);
+        }
+      });
+      $('#input-text').focus(function (e) {
+        if ($('#input-text').val()) {
+          $('#encode-text').attr('disabled', false);
+        } else {
+          $('#encode-text').attr('disabled', true);
+        }
+      });
       // When "Encode Text" button is clicked:
       $('#encode-text').click(function () {
         // Change button state.
         $('#encode-text').button('loading');
+        $('#decode-text').attr('disabled', false);
         // Create or set ngramModel.
         var corpusOption = $('#corpus-selector').val();
         if (corpusOption === 'custom') {
@@ -108,8 +129,11 @@
         codec.setModel(models[corpusOption]);
         // Encode text.
         $('#output-text').val(codec.encode($('#input-text').val()));
+        // Reset input text.
+        $('#input-text').val('');
         // Reset button state.
         $('#encode-text').button('reset');
+        $('#encode-text').attr('disabled', true);
       });
       // When "Decode Text" button is clicked:
       $('#decode-text').click(function () {
