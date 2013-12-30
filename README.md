@@ -44,3 +44,8 @@ Acknowledgements
 ----------------
 * Hernan Moraldo ([@hmoraldo](https://github.com/hmoraldo/))
 * Umair Idris ([@umairidris](https://github.com/umairidris))
+
+Licence
+-------
+
+[MIT](http://www.tldrlegal.com/l/MIT)
