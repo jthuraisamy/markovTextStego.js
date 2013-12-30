@@ -4,7 +4,7 @@
  * @author Jackson Thuraisamy
  * @version 0.1.0 (2013-12-27)
  */
-var markovTextStego = function (options) {
+var MarkovTextStego = function (options) {
   var stego = this;
 
   // Configure options.
@@ -141,6 +141,10 @@ var markovTextStego = function (options) {
     };
   };
 
+  this.NGramModelException = function (message) {
+    this.message = message;
+  };
+
   this.NGramModel = function (n) {
     if (n === undefined) {
       n = 2;
@@ -244,15 +248,26 @@ var markovTextStego = function (options) {
         }
       }
       // Map n-grams to probabilities.
+      var numProbabilities = 0;
       for (ngram in ngrams) {
         // Skip elements that are not ngrams.
         if (!ngrams.hasOwnProperty(ngram)) {
           continue;
         }
-        ngrams[ngram] = computeProbabilities(ngrams[ngram]);
+        var wordProbabilities = computeProbabilities(ngrams[ngram]);
+        numProbabilities += wordProbabilities.length;
+        ngrams[ngram] = wordProbabilities;
       }
       // Set status.
       this.busy = 0;
+      // Check model for errors.
+      if (Object.keys(ngrams).length === 0) {
+        throw new stego.NGramModelException(
+          'No n-grams were constructed.');
+      } else if (numProbabilities <= Object.keys(ngrams).length) {
+        throw new stego.NGramModelException(
+          'All n-grams have only one outcome.');
+      }
       // Set model instance variable.
       model = ngrams;
       // Return n-grams model.
@@ -276,6 +291,10 @@ var markovTextStego = function (options) {
     this.getCorpus = function () {
       return corpus;
     };
+  };
+
+  this.CodecException = function (code, message) {
+    this.message = message;
   };
 
   this.Codec = function (ngramModel) {
@@ -583,6 +602,11 @@ var markovTextStego = function (options) {
           for (j = 0; j < ngramModel.n; j++) {
             priorWord.push(stego.lineDelimiter);
           }
+        }
+        // Throw exception if prior word is invalid n-gram.
+        if (ngramModel.getModel().hasOwnProperty(priorWord) === false) {
+          throw new stego.CodecException(
+            JSON.stringify(priorWord) + ' is an invalid n-gram.');
         }
         self.startWord = priorWord;
         // Simplify bit range, and add bits to BitField.

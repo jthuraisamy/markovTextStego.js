@@ -17,7 +17,7 @@ Usage
 
 Initial setup:
 
-    var stego = new markovTextStego();
+    var stego = new MarkovTextStego();
     
 Create n-gram model:
 
@@ -34,6 +34,10 @@ Encode &amp; Decode:
 
     codec.encode('Hello World!');
     codec.decode('The Achaeans. And with a moderate force of which one has to remark that men ought either to the kingdom! In exchange for the priesthood? Were San Pietro ad Vincula. He was obliged to avoid one trouble without running into another but prudence consists in knowing how lukewarm he was priest and that those men who were besieging Gaeta. In charge of Messer Antonio the priest to the shoulders of the counsellors will think of himself.');
+
+Change the model:
+
+    codec.setModel(newModel);
 
 Limitations
 -----------
