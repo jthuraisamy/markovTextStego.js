@@ -38,7 +38,7 @@ Limitations
 
 * Corpus must contain at least two unique sentences/lines with each consisting of two or more words.
 
-Special Thanks
---------------
+Acknowledgements
+----------------
 * Hernan Moraldo ([@hmoraldo](https://github.com/hmoraldo/))
 * Umair Idris ([@umairidris](https://github.com/umairidris))
