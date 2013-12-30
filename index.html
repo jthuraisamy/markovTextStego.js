@@ -95,14 +95,7 @@
       // Disable "Encode Text" button when there is nothing to encode.
       $('#input-text').bind('input propertychange', function (e) {
         if ($('#input-text').val()) {
-          $('#encode-text').attr('disabled', false);
-        } else {
-          $('#encode-text').attr('disabled', true);
-        }
-      });
-      $('#input-text').focus(function (e) {
-        if ($('#input-text').val()) {
-          $('#encode-text').attr('disabled', false);
+          $('#encode-text').button('reset');
         } else {
           $('#encode-text').attr('disabled', true);
         }
@@ -132,8 +125,7 @@
         // Reset input text.
         $('#input-text').val('');
         // Reset button state.
-        $('#encode-text').button('reset');
-        $('#encode-text').attr('disabled', true);
+        $('#encode-text').text('Encode Text');
       });
       // When "Decode Text" button is clicked:
       $('#decode-text').click(function () {
