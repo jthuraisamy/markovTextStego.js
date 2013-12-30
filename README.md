@@ -1,7 +1,7 @@
 markovTextStego.js
 ==================
 
-This is a text steganography library for JavaScript that is an adaptation of Hernan Moraldo's [markovTextStego](https://github.com/hmoraldo/markovTextStego).
+This is a text steganography library for JavaScript adapted from [Hernan Moraldo](http://www.hernan.moraldo.com.ar/)'s [reference implementation](https://github.com/hmoraldo/markovTextStego) for &ldquo;[An Approach for Text Steganography Based on Markov Chains](http://www.41jaiio.org.ar/sites/default/files/3_WSegI_2012.pdf)&rdquo;. This method produces more natural looking and less easily detectable texts than other Markov-based systems.
 
 An online interactive demo is available [**here**](http://jthuraisamy.github.io/markovTextStego.js/).
 
