@@ -72,8 +72,7 @@
             <div class="panel-body">
               <textarea id="output-text"
                         class="form-control"
-                        rows="10"
-                        onkeydown="return false;"></textarea>
+                        rows="10"></textarea>
               <br>
               <button id="decode-text"
                       type="button"
@@ -94,7 +93,7 @@
             </div>
             <div class="panel-body">
               <p>Initial setup:</p>
-              <pre>var stego = new markovTextStego();</pre>
+              <pre>var stego = new MarkovTextStego();</pre>
               <p>Create n-gram model:</p>
               <pre>
 var corpus = [...];
@@ -132,7 +131,7 @@ codec.decode('The Achaeans. And with a moderate force of which one has to remark
     <script type="text/javascript">
       // Initialise stego.
       var models = {};
-      var stego = new markovTextStego();
+      var stego = new MarkovTextStego();
       var codec = new stego.Codec(null);
       // Focus on input textarea.
       $('#input-text').focus();
@@ -164,7 +163,18 @@ codec.decode('The Achaeans. And with a moderate force of which one has to remark
             delete models[corpusOption];
           }
           models[corpusOption] = new stego.NGramModel(2);
-          models[corpusOption].import([$('#input-corpus').val()]);
+          try {
+            models[corpusOption].import([$('#input-corpus').val()]);
+          } catch (e) {
+            if (e instanceof stego.NGramModelException) {
+              alert('Invalid corpus specified. See limitations.\n\n' +
+                    'Error message: ' + e.message);
+              // Reset button state.
+              $('#decode-text').text('Decode Text');
+              $('#encode-text').button('reset');
+              return;
+            }
+          }
         } else {
           if (!models.hasOwnProperty(corpusOption)) {
             models[corpusOption] = new stego.NGramModel(2);
@@ -185,7 +195,17 @@ codec.decode('The Achaeans. And with a moderate force of which one has to remark
         // Change button state.
         $('#decode-text').button('loading');
         // Decode text.
-        $('#input-text').val(codec.decode($.trim($('#output-text').val())));
+        try {
+          $('#input-text').val(codec.decode($.trim($('#output-text').val())));
+        } catch (e) {
+          if (e instanceof stego.CodecException) {
+            alert('Could not decode message.\n\n' +
+                  'Error message: ' + e.message);
+            // Reset button state.
+            $('#decode-text').text('Decode Text');
+            $('#encode-text').button('reset');
+          }
+        }
         // Reset output text.
         $('#output-text').val('');
         // Reset button state.
