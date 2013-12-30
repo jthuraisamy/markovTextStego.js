@@ -1,7 +1,7 @@
 markovTextStego.js
 ==================
 
-This is a text steganography library for JavaScript that is a port of Hernan Moraldo's [markovTextStego](https://github.com/hmoraldo/markovTextStego).
+This is a text steganography library for JavaScript that is an adaptation of Hernan Moraldo's [markovTextStego](https://github.com/hmoraldo/markovTextStego).
 
 Installation
 ------------
@@ -30,6 +30,11 @@ Encode &amp; Decode:
 
     codec.encode('Hello World!');
     codec.decode('The Achaeans. And with a moderate force of which one has to remark that men ought either to the kingdom! In exchange for the priesthood? Were San Pietro ad Vincula. He was obliged to avoid one trouble without running into another but prudence consists in knowing how lukewarm he was priest and that those men who were besieging Gaeta. In charge of Messer Antonio the priest to the shoulders of the counsellors will think of himself.');
+
+Limitations
+-----------
+
+* Corpus must, at minimum, contain two unique sentences/lines.
 
 Special Thanks
 --------------
