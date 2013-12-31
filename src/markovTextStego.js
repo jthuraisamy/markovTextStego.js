@@ -405,7 +405,6 @@ var MarkovTextStego = function (options) {
       for (i = 0; i < data.length; i++) {
         dataByteArray.push(data.charCodeAt(i));
       }
-      console.log(data, dataByteArray);
       // Encode length of data first.
       var dataLength = dataByteArray.length;
       var dataLengthByteArray = [];
