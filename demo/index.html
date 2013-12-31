@@ -143,12 +143,19 @@ codec.decode('The Achaeans. And with a moderate force of which one has to remark
           $('#input-corpus').attr('disabled', true);
         }
       });
-      // Disable "Encode Text" button when there is nothing to encode.
+      // Disable encode/decode button when there is nothing to process.
       $('#input-text').bind('input propertychange', function (e) {
         if ($('#input-text').val()) {
           $('#encode-text').button('reset');
         } else {
           $('#encode-text').attr('disabled', true);
+        }
+      });
+      $('#output-text').bind('input propertychange', function (e) {
+        if ($('#output-text').val()) {
+          $('#decode-text').button('reset');
+        } else {
+          $('#decode-text').attr('disabled', true);
         }
       });
       // When "Encode Text" button is clicked:
@@ -187,7 +194,7 @@ codec.decode('The Achaeans. And with a moderate force of which one has to remark
           $('#output-text').val(codec.encode($('#input-text').val()));
         } catch (e) {
           if (e instanceof stego.CodecException) {
-            alert('Could not encode message.\n\n' +
+            alert('Could not encode data.\n\n' +
                   'Error message: ' + e.message);
             // Reset button state.
             $('#encode-text').text('Encode Text');
@@ -210,7 +217,7 @@ codec.decode('The Achaeans. And with a moderate force of which one has to remark
           $('#input-text').val(codec.decode($.trim($('#output-text').val())));
         } catch (e) {
           if (e instanceof stego.CodecException) {
-            alert('Could not decode message.\n\n' +
+            alert('Could not decode text.\n\n' +
                   'Error message: ' + e.message);
             // Reset button state.
             $('#encode-text').text('Encode Text');
