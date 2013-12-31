@@ -4,18 +4,14 @@
  * @author Jackson Thuraisamy
  * @version 0.1.0 (2013-12-27)
  */
-var MarkovTextStego = function (options) {
+var MarkovTextStego = function () {
   var stego = this;
 
   // Configure options.
   this.lineDelimiter = '!|!'; // MUST NOT HAVE ANY ALPHABETICAL CHARACTERS!
   this.punctuationList = ['.', '.', '.', '.', '.', '.', '.', '.', '?', '!'];
-  this.matchPattern = /(\w['’\w\.\-]*\w)|\w/g;
-  if (options) {
-    this.lineDelimiter = options.lineDelimiter || this.lineDelimiter;
-    this.punctuationList = options.punctuationList || this.punctuationList;
-    this.matchPattern = options.matchPattern || this.matchPattern;
-  }
+  this.matchPattern = new RegExp(
+    /(\w[\w\.\?\-\\\/'’:]*\w)|\w|([:;=]\-?['*\(\)\[\]\\\/DdFPp$Ss0OoXx]+)/g);
 
   this.BitField = function (data) {
     var self = this;
@@ -725,7 +721,9 @@ var MarkovTextStego = function (options) {
      */
     var textToWordList = function (text) {
       // Define word list.
-      var wordList = text.match(/(\w['’\w\.\-]*\w)|\w|\.|\!|\?/g);
+      var textMatcher = new RegExp(stego.matchPattern.source + '|\\.|\\!|\\?',
+                                   'g');
+      var wordList = text.match(textMatcher);
       // Replace punctuation and convert words to lowercase.
       for (var i = 0; i < wordList.length; i++) {
         if (stego.punctuationList.indexOf(wordList[i]) !== -1) {
