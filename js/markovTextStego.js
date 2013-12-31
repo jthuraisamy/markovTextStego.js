@@ -159,7 +159,7 @@ var MarkovTextStego = function (options) {
     this.busy = 0;
 
     /**
-     * Given a list of words, compute the probability for each unique word
+     * Given an array of words, compute the probability for each unique word
      * (case-insensitive) represented as a fraction.
      *
      * @private
@@ -188,14 +188,33 @@ var MarkovTextStego = function (options) {
     };
 
     /**
+     * Given an array of word probabilities, return an array containing each
+     * word in the number of times it occurred.
+     *
+     * @private
+     * @param {array} An array of word probabilities from computeProbabilities.
+     * @return {array} An array of words.
+     */
+    var probabilitiesToWordList = function (wordProbabilities) {
+      var words = [];
+      for (var i = 0; i < wordProbabilities.length; i++) {
+        for (var j = 0; j < wordProbabilities[i][1][0]; j++) {
+          words.push(wordProbabilities[i][0]);
+        }
+      }
+      return words;
+    };
+
+
+    /**
      * Create an n-gram model.
      *
-     * @param {array} messages An array of messages.
+     * @param {array} newCorpus An array of corpus strings.
      * @return {object} The n-gram model.
      */
     this.import = function (newCorpus) {
       // Set messages instance variable.
-      corpus = newCorpus;
+      corpus = corpus.concat(newCorpus);
       // Set status.
       this.busy = 1;
       // Split messages into word-splitted lines.
@@ -269,9 +288,41 @@ var MarkovTextStego = function (options) {
           'All n-grams have only one outcome.');
       }
       // Set model instance variable.
-      model = ngrams;
+      if (Object.keys(model).length === 0) {
+        model = ngrams;
+      }
       // Return n-grams model.
       return ngrams;
+    };
+
+    /**
+     * Update the n-gram model with new corpus strings.
+     *
+     * @param {array} newCorpus An array of strings.
+     * @return {object} The n-gram model.
+     */
+    this.update = function (newCorpus) {
+      // Throw exception if model was not created.
+      if (Object.keys(model).length === 0) {
+        throw new stego.NGramModelException(
+          'Cannot update a model that has no existing corpus.');
+      }
+      // Create a model from only the corpus update.
+      var updateModel = this.import(newCorpus);
+      // Merge updateModel with model.
+      for (var ngram in updateModel) {
+        // Skip elements that are not ngrams.
+        if (model.hasOwnProperty(ngram)) {
+          var wordListOriginal = probabilitiesToWordList(model[ngram]);
+          var wordListNew = probabilitiesToWordList(updateModel[ngram]);
+          var mergedWordList = [].concat(wordListOriginal, wordListNew);
+          model[ngram] = computeProbabilities(mergedWordList);
+        } else {
+          model[ngram] = updateModel[ngram];
+        }
+      }
+      // Return model.
+      return model;
     };
 
     /**
@@ -323,6 +374,7 @@ var MarkovTextStego = function (options) {
      */
     this.setModel = function (newModel) {
       ngramModel = newModel;
+      return ngramModel;
     };
 
     /*************************************************************************
