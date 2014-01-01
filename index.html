@@ -90,6 +90,25 @@
       </div>
       <div class="row">
         <div class="col-md-6">
+          <!-- About Panel -->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">About</h3>
+            </div>
+            <div class="panel-body">
+              <p>
+                This is a text steganography library for JavaScript adapted from <a href="http://www.hernan.moraldo.com.ar/">Hernan Moraldo</a>'s <a href="https://github.com/hmoraldo/markovTextStego">reference implementation</a> for &ldquo;<a href="http://www.41jaiio.org.ar/sites/default/files/3_WSegI_2012.pdf">An Approach for Text Steganography Based on Markov Chains</a>&rdquo;. This method produces more natural looking and less easily detectable texts than other Markov-based systems.
+                In this implementation, n-gram models support updating and n values of &ge; 1.
+              </p>
+              <p>Acknowledgements:</p>
+              <ul>
+                <li>Hernan Moraldo</li>
+                <li>Umair Idris</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
           <!-- Usage Panel -->
           <div class="panel panel-default">
             <div class="panel-heading">
@@ -112,25 +131,6 @@ codec.decode('The Achaeans. And with a moderate force of which one has to remark
               <pre>model.update(additionalCorpus);</pre>
               <p>Change the model to a different one:</p>
               <pre>codec.setModel(newModel);</pre>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <!-- About Panel -->
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">About</h3>
-            </div>
-            <div class="panel-body">
-              <p>
-                This is a text steganography library for JavaScript adapted from <a href="http://www.hernan.moraldo.com.ar/">Hernan Moraldo</a>'s <a href="https://github.com/hmoraldo/markovTextStego">reference implementation</a> for &ldquo;<a href="http://www.41jaiio.org.ar/sites/default/files/3_WSegI_2012.pdf">An Approach for Text Steganography Based on Markov Chains</a>&rdquo;. This method produces more natural looking and less easily detectable texts than other Markov-based systems.
-                In this implementation, n-gram models support updating and n values of &ge; 1.
-              </p>
-              <p>Acknowledgements:</p>
-              <ul>
-                <li>Hernan Moraldo</li>
-                <li>Umair Idris</li>
-              </ul>
             </div>
           </div>
         </div>
